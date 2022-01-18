@@ -1,0 +1,61 @@
+body {
+    background: #86758D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
+}
+
+.randomList {
+    width: 500px;
+}
+
+.randomList, .btnCalc {
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+.maxNumber > strong, .modulo > strong {
+    padding: 5px;
+    background: black;
+    color: white;
+}
+
+#maxList, #moduloList{
+    background: #F8F8F8;
+    padding: 5px;
+}
+
+#matrice {
+    margin-top: 20px;
+    padding: 0;
+}
+
+#l1 > ul, #l2 > ul, #l3 > ul, #l4 > ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+}
+
+#l1 > ul > li, #l2 > ul > li, #l3 > ul > li, #l4 > ul > li {
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #555A5B;
+    background: #F8F8F8;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.refresh {
+    padding: 5px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}

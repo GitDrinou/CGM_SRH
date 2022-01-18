@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cegedim SRH - Technical Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="content">
+        <div id="app">
+            <input type="text" v-model.text="randomNumber" class="randomList">
+            <button class="btnCalc" @click="classified">Calculate</button>
+            <p class="maxNumber"><strong>Max :</strong> <span id="maxList"></span></p>            
+            <p class="modulo"><strong>Modulo :</strong> <span id="moduloList"></span></p>
+            <div id="matrice">
+                <div id="l1"></div>
+                <div id="l2"></div>
+                <div id="l3"></div>
+                <div id="l4"></div>
+            </div>
+            <button class="refresh" @click="refresh">Actualiser</button>
+        </div>
+    </div>
+    
+
+    <script src="functions.js"></script>
+    <script>
+        var min = Math.ceil(100)
+        var max = Math.floor(999)
+        var app = new Vue({
+            el:'#app',
+            data: {
+                randomNumber: getRandomNumber(min,max, 12)
+            },
+            methods: {
+                classified: function () {
+                    let elt = document.querySelector('.randomList').value
+                    let numbers = elt.split(',')
+                    let class100 = [], class200 = [], class300 = [], class400 = [], class500 = [], class600 = [], class700 = [], class800 = [], class900 = []
+                    let myMaxList = [], myModuloList = []
+                    const alphabet = Array.from(Array(26), (e, i) => String.fromCharCode(i + 97))
+
+                    // Max Number
+                    for(let elt of numbers) {
+                        if (parseInt(elt) >=100 && parseInt(elt) <= 199) {class100.push(parseInt(elt))}
+                        if (parseInt(elt) >=200 && parseInt(elt) <= 299) {class200.push(parseInt(elt))}
+                        if (parseInt(elt) >=300 && parseInt(elt) <= 399) {class300.push(parseInt(elt))}
+                        if (parseInt(elt) >=400 && parseInt(elt) <= 499) {class400.push(parseInt(elt))}
+                        if (parseInt(elt) >=500 && parseInt(elt) <= 599) {class500.push(parseInt(elt))}
+                        if (parseInt(elt) >=600 && parseInt(elt) <= 699) {class600.push(parseInt(elt))}
+                        if (parseInt(elt) >=700 && parseInt(elt) <= 799) {class700.push(parseInt(elt))}
+                        if (parseInt(elt) >=800 && parseInt(elt) <= 899) {class800.push(parseInt(elt))}
+                        if (parseInt(elt) >=900 && parseInt(elt) <= 999) {class900.push(parseInt(elt))}
+                    } 
+                    
+                    let max100 = class100.length > 0 ? Math.max(...class100) : 0
+                    let max200 = class200.length > 0 ? Math.max(...class200) : 0
+                    let max300 = class300.length > 0 ? Math.max(...class300) : 0
+                    let max400 = class400.length > 0 ? Math.max(...class400) : 0
+                    let max500 = class500.length > 0 ? Math.max(...class500) : 0
+                    let max600 = class600.length > 0 ? Math.max(...class600) : 0
+                    let max700 = class700.length > 0 ? Math.max(...class700) : 0
+                    let max800 = class800.length > 0 ? Math.max(...class800) : 0
+                    let max900 = class900.length > 0 ? Math.max(...class900) : 0
+
+                    myMaxList.push(max100, max200, max300, max400, max500, max600, max700, max800, max900)
+                    myMaxList = myMaxList.filter((e) => e !== 0)
+
+                    // Modulo 26
+                    for(let number of myMaxList) {
+                        myModuloList.push(alphabet[number % 26].toUpperCase())
+                    }
+
+                    // Matrice
+                    let numItemByLine = [4,8,12,16]
+                    let ligne1 = ``, ligne2 = ``, ligne3 = ``, ligne4 = ``
+                    let cpt=0
+
+                    do {
+                        myModuloList.push("?")
+                    } while (myModuloList.length < 17)
+
+                    myModuloList = myModuloList.sort(()=> Math.random() - 0.5)
+
+                    for (let letter of myModuloList) {
+                        cpt < 4 ? ligne1 += `<li>${letter}</li>` : "?"
+                        cpt > 4 && cpt < 9 ? ligne2 += `<li>${letter}</li>` : "?"                        
+                        cpt > 8 && cpt < 13 ? ligne3 += `<li>${letter}</li>` : "?"
+                        cpt > 12 ? ligne4 += `<li>${letter}</li>` : "?"
+                        cpt++                        
+                    }
+                    
+
+                    // display
+                    document.getElementById('maxList').innerHTML = myMaxList
+                    document.getElementById('moduloList').innerHTML = myModuloList
+
+                    document.getElementById('l1').innerHTML = `<ul>${ligne1}</ul>`
+                    document.getElementById('l2').innerHTML = `<ul>${ligne2}</ul>`
+                    document.getElementById('l3').innerHTML = `<ul>${ligne3}</ul>`
+                    document.getElementById('l4').innerHTML = `<ul>${ligne4}</ul>`
+
+                },
+                refresh: function() {
+                    location.reload()
+                }
+            }
+        })
+    </script>
+</body>
+</html>
